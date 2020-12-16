@@ -19,8 +19,8 @@
 
 #include "RS485.h"
 
-RS485Class::RS485Class(HardwareSerial& hwSerial, int txPin, int dePin, int rePin) :
-  _serial(&hwSerial),
+RS485Class::RS485Class(CustomSoftwareSerial& swSerial, int txPin, int dePin, int rePin) :
+  _serial(&swSerial),
   _txPin(txPin),
   _dePin(dePin),
   _rePin(rePin),
@@ -178,4 +178,4 @@ void RS485Class::setPins(int txPin, int dePin, int rePin)
   _rePin = rePin;
 }
 
-RS485Class RS485(SERIAL_PORT_HARDWARE, RS485_DEFAULT_TX_PIN, RS485_DEFAULT_DE_PIN, RS485_DEFAULT_RE_PIN);
+

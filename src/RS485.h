@@ -21,28 +21,14 @@
 #define _RS485_H_INCLUDED
 
 #include <Arduino.h>
-
-#ifdef PIN_SERIAL1_TX
-#define RS485_DEFAULT_TX_PIN PIN_SERIAL1_TX
-#else
-#define RS485_DEFAULT_TX_PIN 1 
-#endif
-
-#ifdef __AVR__
-#define RS485_DEFAULT_DE_PIN 2
-#define RS485_DEFAULT_RE_PIN -1
-#else
-#define RS485_DEFAULT_DE_PIN A6
-#define RS485_DEFAULT_RE_PIN A5
-#endif
-
+#include <CustomSoftwareSerial.h>
 
 #define RS485_DEFAULT_PRE_DELAY 50
 #define RS485_DEFAULT_POST_DELAY 50
 
 class RS485Class : public Stream {
   public:
-    RS485Class(HardwareSerial& hwSerial, int txPin, int dePin, int rePin);
+    RS485Class(CustomSoftwareSerial& hwSerial, int txPin, int dePin, int rePin);
 
     virtual void begin(unsigned long baudrate);
     virtual void begin(unsigned long baudrate, uint16_t config);
@@ -68,7 +54,7 @@ class RS485Class : public Stream {
     void setPins(int txPin, int dePin, int rePin);
 
   private:
-    HardwareSerial* _serial;
+    CustomSoftwareSerial* _serial;
     int _txPin;
     int _dePin;
     int _rePin;
@@ -79,7 +65,5 @@ class RS485Class : public Stream {
     unsigned long _baudrate;
     uint16_t _config;
 };
-
-extern RS485Class RS485;
 
 #endif
